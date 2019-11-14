@@ -1,0 +1,69 @@
+---
+- name: Create VM on oVirt
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+
+  # Prompt for engine credentials
+  vars_prompt:
+    - name: user_name
+      prompt: "Please enter username"
+      private: no 
+
+    - name: ovirt_password
+      prompt: "Please enter password"
+
+  vars:
+    suffix: "@internal"
+    ovirt_user: "{{ user_name }}{{ suffix }}"
+
+  pre_tasks:
+    - name: Login to oVirt
+      ovirt_auth:
+        hostname: "{{ ovirt_fqdn }}"
+        username: "{{ ovirt_user }}"
+        password: "{{ ovirt_password }}"
+      tags:
+        - always 
+
+  tasks:
+  - name: Create and run VM from template
+    ovirt_vm:
+      auth: "{{ ovirt_auth }}"
+      name: "{{ item }}"
+      template: "{{ template }}"
+      cluster: "{{ cluster }}"
+      memory: "{{ vm_memory }}"
+      high_availability: true
+      state: present
+      wait: yes
+    with_items: "{{ groups['fc30'] }}"
+
+  - name: Create NIC and set MAC addr
+    ovirt_nic:
+      auth: "{{ ovirt_auth  }}"
+      state: present
+      vm: "{{ item }}"
+      name: nic0 
+      interface: virtio
+      mac_address: "{{ hostvars[item]['mac'] }}"
+      profile: "workers"
+      network: "workers"
+    loop: "{{ groups['fc30'] }}"
+
+  - name: Attach NIC to VM
+    ovirt_nic:
+      auth: "{{ ovirt_auth }}"
+      state: plugged
+      vm: "{{ item }}"
+      name: nic0
+    loop: "{{ groups['fc30'] }}"
+
+  post_tasks:
+    - name: Logout from oVirt
+      ovirt_auth:
+        state: absent
+        ovirt_auth: "{{ ovirt_auth }}"
+      tags:
+        - always
