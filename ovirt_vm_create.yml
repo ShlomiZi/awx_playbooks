@@ -6,13 +6,13 @@
 
 
   # Prompt for engine credentials
-  vars_prompt:
-    - name: user_name
-      prompt: "Please enter username"
-      private: no 
-
-    - name: ovirt_password
-      prompt: "Please enter password"
+  #vars_prompt:
+  #  - name: user_name
+  #    prompt: "Please enter username"
+  #    private: no 
+#
+ #   - name: ovirt_password
+ #     prompt: "Please enter password"
 
   vars:
     suffix: "@internal"
