@@ -31,7 +31,7 @@
   - name: Installing oVirt module for Ansible(without specifying version)
     pip:
       name: ovirt-engine-sdk-python
-      #version: '4.3.3'
+      version: '4.3.3'
   
   - name: Create and run VM from template
     ovirt_vm:
