@@ -28,7 +28,7 @@
   #      - always 
 
   tasks:
-  - name: Installing oVirt module for Ansible
+  - name: Installing oVirt module for Ansible(without specifying version)
     pip:
       name: ovirt-engine-sdk-python
       #version: '4.3.3'
