@@ -28,6 +28,11 @@
   #      - always 
 
   tasks:
+  - name: Installing gcc
+    yum:
+      name: gcc
+      state: present
+  
   - name: Installing prerequisites
     yum:
       name: libcurl-devel
