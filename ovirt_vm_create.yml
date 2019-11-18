@@ -1,6 +1,6 @@
 ---
 - name: Create VM on oVirt
-  hosts: localhost
+  hosts: remote_host
   connection: local
   gather_facts: false
 
