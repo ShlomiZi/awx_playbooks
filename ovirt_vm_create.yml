@@ -28,6 +28,11 @@
   #      - always 
 
   tasks:
+  - name: Installing prerequisites
+    yum:
+      name: libcurl-devel
+      state: present 
+  
   - name: Installing oVirt module for Ansible(without specifying version)
     pip:
       name: ovirt-engine-sdk-python
