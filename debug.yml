@@ -1,0 +1,10 @@
+---
+
+- hosts: localhost
+
+  tasks:
+  - name: Print ip
+    shell: ifconfig enp0s31f6 
+    register: out
+
+  - debug: msg="{{ out.stdout }}"
