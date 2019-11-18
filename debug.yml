@@ -4,7 +4,7 @@
 
   tasks:
   - name: Print ip
-    shell: ifconfig eth0 
+    shell: ip a | grep eth0 
     register: out
 
   - debug: msg="{{ out.stdout }}"
