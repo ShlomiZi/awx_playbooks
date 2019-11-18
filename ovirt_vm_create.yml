@@ -20,7 +20,7 @@
 
   pre_tasks:
     - pip:
-      name: ovirt-engine-sdk-python==4.3.3
+        name: ovirt-engine-sdk-python==4.3.3
       
     - name: Login to oVirt
       ovirt_auth:
