@@ -18,22 +18,19 @@
     suffix: "@internal"
     ovirt_user: "{{ user_name }}{{ suffix }}"
 
-  pre_tasks:
-    #- pip:
-    #    name: ovirt-engine-sdk-python==4.3.3
-      
-    - name: Login to oVirt
-      pip:
-        name: ovirt-engine-sdk-python==4.3.3
-      ovirt_auth:
-        hostname: "{{ ovirt_fqdn }}"
-        username: "{{ ovirt_user }}"
-        password: "{{ ovirt_password }}"
-      tags:
-        - always 
+  #pre_tasks:      
+   # - name: Login to oVirt
+   #   ovirt_auth:
+   #     hostname: "{{ ovirt_fqdn }}"
+   ##     username: "{{ ovirt_user }}"
+    #    password: "{{ ovirt_password }}"
+    #  tags:
+    #    - always 
 
   tasks:
-      
+  - pip:
+      name: ovirt-engine-sdk-python=4.3.3
+     
   - name: Create and run VM from template
     ovirt_vm:
       auth: "{{ ovirt_auth }}"
