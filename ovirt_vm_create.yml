@@ -29,7 +29,7 @@
 
   tasks:
   - pip:
-      name: ovirt-engine-sdk-python=4.3.3
+      name: ovirt-engine-sdk-python==4.3.3
      
   - name: Create and run VM from template
     ovirt_vm:
