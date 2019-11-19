@@ -23,7 +23,7 @@
     #    name: ovirt-engine-sdk-python==4.3.3
       
     - name: Login to oVirt
-    - pip:
+      pip:
         name: ovirt-engine-sdk-python==4.3.3
       ovirt_auth:
         hostname: "{{ ovirt_fqdn }}"
