@@ -42,6 +42,7 @@
       state: present
       wait: yes
     loop: "{{ groups['fc30'] }}"
+    loop: "{{ groups.fc30 }}"
 
   - name: Create NIC and set MAC addr
     ovirt_nic:
