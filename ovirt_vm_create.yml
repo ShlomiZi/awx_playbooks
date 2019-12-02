@@ -28,17 +28,6 @@
         - always 
 
   tasks:
-  #- pip:
-  #    name: ovirt-engine-sdk-python==4.3.3
-     
-  - name: Login to oVirt
-    ovirt_auth:
-      hostname: "{{ ovirt_fqdn }}"
-      username: "{{ ovirt_user }}"
-      password: "{{ ovirt_password }}"
-    tags:
-       - always
-     
   - name: Create and run VM from template
     ovirt_vm:
       auth: "{{ ovirt_auth }}"
@@ -50,8 +39,8 @@
       state: present
       wait: yes
     #loop: "{{ groups['fc30'] }}"
-    with_items:
-    - "{{ fc30 }}"
+    #with_items:
+    #- "{{ fc30 }}"
     
   - name: Create NIC and set MAC addr
     ovirt_nic:
