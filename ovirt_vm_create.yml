@@ -38,7 +38,7 @@
       high_availability: true
       state: present
       wait: yes
-    #loop: "{{ groups['fc30'] }}"
+    loop: "{{ groups['fc30'] }}"
     #with_items:
     #- "{{ fc30 }}"
     
