@@ -49,8 +49,8 @@
       vm: "{{ item }}"
       name: nic0 
       interface: virtio
-      #mac_address: "{{ hostvars[item]['mac'] }}"
-      mac_address: "{{ item.mac }}"
+      mac_address: "{{ hostvars[item]['mac'] }}"
+      #mac_address: "{{ item.mac }}"
       profile: "workers"
       network: "workers"
     loop: "{{ groups['fc30'] }}"
