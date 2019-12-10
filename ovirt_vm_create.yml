@@ -14,23 +14,23 @@
  #   - name: ovirt_password
  #     prompt: "Please enter password"
 
-  #vars:
-  #  suffix: "@internal"
-  #  ovirt_user: "{{ user_name }}{{ suffix }}"
+  vars:
+    suffix: "@internal"
+    ovirt_user: "{{ user_name }}{{ suffix }}"
 
-  #pre_tasks:      
-  #  - name: Login to oVirt
-  #    ovirt_auth:
-  #      hostname: "{{ ovirt_fqdn }}"
-  #      username: "{{ ovirt_user }}"
-  #      password: "{{ ovirt_password }}"
-  #    tags:
-  #      - always 
+  pre_tasks:      
+    - name: Login to oVirt
+      ovirt_auth:
+        hostname: "{{ ovirt_fqdn }}"
+        username: "{{ ovirt_user }}"
+        password: "{{ ovirt_password }}"
+      tags:
+        - always 
 
   tasks:
   - name: Create and run VM from template
     ovirt_vm:
-   #   auth: "{{ ovirt_auth }}"
+      auth: "{{ ovirt_auth }}"
       name: "{{ item }}"
       template: "{{ template }}"
       cluster: "{{ cluster }}"
@@ -44,7 +44,7 @@
     
   - name: Create NIC and set MAC addr
     ovirt_nic:
-    #  auth: "{{ ovirt_auth  }}"
+      auth: "{{ ovirt_auth  }}"
       state: present
       vm: "{{ item }}"
       name: nic0 
@@ -57,16 +57,16 @@
 
   - name: Attach NIC to VM
     ovirt_nic:
-    #  auth: "{{ ovirt_auth }}"
+      auth: "{{ ovirt_auth }}"
       state: plugged
       vm: "{{ item }}"
       name: nic0
     loop: "{{ groups['fc30'] }}"
 
-  #post_tasks:
-  #  - name: Logout from oVirt
-  #    ovirt_auth:
-  #      state: absent
-  #      ovirt_auth: "{{ ovirt_auth }}"
-  #    tags:
-  #      - always
+  post_tasks:
+    - name: Logout from oVirt
+      ovirt_auth:
+        state: absent
+        ovirt_auth: "{{ ovirt_auth }}"
+      tags:
+        - always
