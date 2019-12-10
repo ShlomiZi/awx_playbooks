@@ -14,18 +14,18 @@
  #   - name: ovirt_password
  #     prompt: "Please enter password"
 
-  #vars:
-  #  suffix: "@internal"
-  #  ovirt_user: "{{ user_name }}{{ suffix }}"
+  vars:
+    suffix: "@internal"
+    ovirt_user: "{{ user_name }}{{ suffix }}"
 
-  #pre_tasks:      
-  #  - name: Login to oVirt
-  #    ovirt_auth:
-  #      hostname: "{{ ovirt_fqdn }}"
-  #      username: "{{ ovirt_user }}"
-  #      password: "{{ ovirt_password }}"
-  #    tags:
-  #      - always 
+  pre_tasks:      
+    - name: Login to oVirt
+      ovirt_auth:
+        hostname: "{{ ovirt_fqdn }}"
+        username: "{{ ovirt_user }}"
+        password: "{{ ovirt_password }}"
+      tags:
+        - always 
 
   tasks:
   - name: Create and run VM from template
