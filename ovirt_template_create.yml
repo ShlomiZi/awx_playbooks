@@ -31,6 +31,7 @@
       tags:
         - always
 
+
   tasks:
   - name: Import image from glance and create tempalte
     ovirt_template:
@@ -42,6 +43,7 @@
      image_provider: "{{ ovirt_image_provider }}"
      storage_domain: "{{ ovirt_storage_domain }}"
      cluster: "{{ ovirt_cluster }}"
+
 
   post_tasks:
     - name: Logout from oVirt
