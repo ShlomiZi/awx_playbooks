@@ -14,7 +14,7 @@
 
   #vars_prompt:
   #  - name: user_name
-  #    prompt: "Please enter username"
+  ##    prompt: "Please enter username"
   #    private: no
 
   #  - name: ovirt_password
