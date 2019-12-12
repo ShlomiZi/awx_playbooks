@@ -8,17 +8,17 @@
     suffix: "@internal"
     ovirt_user: "{{ user_name }}{{ suffix }}"
 
-  vars_files:
-    - vars/{{ env }}/engine_vars.yml
-    - vars/{{ env }}/image_data.yml
+  #vars_files:
+   # - vars/{{ env }}/engine_vars.yml
+   # - vars/{{ env }}/image_data.yml
 
-  vars_prompt:
-    - name: user_name
-      prompt: "Please enter username"
-      private: no
+  #vars_prompt:
+  #  - name: user_name
+  #    prompt: "Please enter username"
+  #    private: no
 
-    - name: ovirt_password
-      prompt: "Please enter password"
+  #  - name: ovirt_password
+  #    prompt: "Please enter password"
 
   pre_tasks:
     - name: Login to oVirt
