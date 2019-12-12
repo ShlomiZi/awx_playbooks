@@ -1,0 +1,52 @@
+---
+- name: Create template from glance image
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  vars:
+    suffix: "@internal"
+    ovirt_user: "{{ user_name }}{{ suffix }}"
+
+  vars_files:
+    - vars/{{ env }}/engine_vars.yml
+    - vars/{{ env }}/image_data.yml
+
+  vars_prompt:
+    - name: user_name
+      prompt: "Please enter username"
+      private: no
+
+    - name: ovirt_password
+      prompt: "Please enter password"
+
+  pre_tasks:
+    - name: Login to oVirt
+      ovirt_auth:
+        hostname: "{{ ovirt_fqdn }}"
+        username: "{{ ovirt_user }}"
+        password: "{{ ovirt_password }}"
+        #ca_file: "{{ ovirt_cafile | default(omit) }}"
+        #insecure: "{{ rhvm_insecure | default(true) }}"
+      tags:
+        - always
+
+  tasks:
+  - name: Import image from glance and create tempalte
+    ovirt_template:
+     auth: "{{ ovirt_auth }}"
+     state: imported
+     name: "{{ new_template_name }}"
+     image_disk: "{{ image_disk_to_import }}"
+     template_image_disk_name: "{{ ovirt_image_disk_name }}"
+     image_provider: "{{ ovirt_image_provider }}"
+     storage_domain: "{{ ovirt_storage_domain }}"
+     cluster: "{{ ovirt_cluster }}"
+
+  post_tasks:
+    - name: Logout from oVirt
+      ovirt_auth:
+        state: absent
+        ovirt_auth: "{{ ovirt_auth }}" 
+      tags:
+        - always
